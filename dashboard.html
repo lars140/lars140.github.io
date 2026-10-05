@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your Stringly guitar learning dashboard."><title>Dashboard | Stringly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="app-sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="app-brand" href="/dashboard" aria-label="Stringly dashboard"><span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M12 6v18.4a5 5 0 1 1-2-4V9l16-3v15.4a5 5 0 1 1-2-4V10L12 12"/></svg></span><span>Stringly</span></a>
+      <nav class="app-nav" aria-label="Learning sections">
+        <a class="app-nav__item is-active" href="/dashboard"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>Dashboard</a>
+        <a class="app-nav__item" href="/lessons"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg>Lessons</a>
+        <a class="app-nav__item" href="/practice"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 7v10M17 7v10M3 10v4M21 10v4"/></svg>Practice</a>
+        <a class="app-nav__item" href="/songs"><svg viewBox="0 0 24 24"><path d="M8 18V5l12-2v13M8 18a3 3 0 1 1-2-2.8M20 16a3 3 0 1 1-2-2.8"/></svg>Songs</a>
+        <a class="app-nav__item" href="#progress"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>Progress</a>
+      </nav>
+      <div class="app-sidebar__bottom">
+        <a class="app-nav__item" href="#settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.2 2.2-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-3.2v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-2.2-2.2.1-.1A1.7 1.7 0 0 0 6.6 15a1.7 1.7 0 0 0-1.5-1H5v-3.2h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 2.2-2.2.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V4h3.2v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 2.2 2.2-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V14h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>Settings</a>
+        <button id="logoutButton" class="app-nav__item app-nav__item--button" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M12 4h7a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7"/></svg>Log out</button>
+      </div>
+    </aside>
+    <main class="app-main">
+      <header class="app-topbar">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><span></span><span></span><span></span></button>
+        <div class="app-topbar__greeting"><p>Tuesday, October 14</p><strong>Keep making music.</strong></div>
+        <div class="app-topbar__actions"><button class="icon-button" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M9.5 21h5"/></svg><span></span></button><div class="user-avatar" id="userAvatar" aria-hidden="true">S</div></div>
+      </header>
+      <div class="app-content">
+        <section class="learning-hero" aria-labelledby="heroTitle">
+          <div class="learning-hero__copy"><p class="section-eyebrow"><span></span> Your daily session</p><h1 id="heroTitle">Ready to play, <span id="dashboardName">guitarist</span>?</h1><p>Small practice sessions make great players. Pick up where you left off and make today count.</p><a class="hero-button" href="#continue"><span>Start learning</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="learning-hero__art" aria-hidden="true"><div class="hero-orbit"></div><span class="music-note note-a">♪</span><span class="music-note note-b">♫</span><img src="/hero-electric-guitar.png" alt=""></div>
+        </section>
+        <section class="overview-grid" id="progress" aria-label="Practice overview">
+          <article class="streak-card"><div class="streak-card__top"><div><p class="card-label">Daily streak</p><h2><span class="flame" aria-hidden="true">♨</span> <span id="streakCount">0</span> <small id="streakUnit">days</small></h2></div><span class="streak-badge">Personal best: <span id="streakBest">0</span></span></div><p class="streak-card__copy" id="streakCopy">Finish a lesson today to start your streak.</p><div class="week-dots" id="weekDots" aria-label="Practice days this week"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></article>
+          <article class="progress-card"><div><p class="card-label">This week</p><h2>3h 45m <span class="trend">↑ 24%</span></h2><p class="progress-card__copy">of your 5 hour goal</p></div><div class="progress-ring" role="img" aria-label="75 percent of weekly practice goal completed"><span>75<small>%</small></span></div></article>
+        </section>
+        <section class="content-section" id="lessons" aria-labelledby="recommendedTitle"><div class="section-heading"><div><p class="section-eyebrow"><span></span> Curated for you</p><h2 id="recommendedTitle">Recommended lessons</h2></div><a href="#lessons">View all <span>→</span></a></div>
+          <div class="lesson-grid">
+            <article class="lesson-card lesson-card--amber"><div class="lesson-card__art"><span>01</span><div class="fretboard"><i></i><i></i><i></i><i></i><i></i><b></b><b></b><b></b><b></b></div></div><div class="lesson-card__body"><p class="lesson-meta">Fundamentals · 12 min</p><h3>Essential open chords</h3><p>Build the foundation for hundreds of songs.</p><button type="button" class="text-button">Start lesson <span>→</span></button></div></article>
+            <article class="lesson-card lesson-card--violet"><div class="lesson-card__art"><span>02</span><div class="wave-lines"><i></i><i></i><i></i><i></i></div></div><div class="lesson-card__body"><p class="lesson-meta">Technique · 18 min</p><h3>Find your perfect rhythm</h3><p>Make your strumming feel natural and alive.</p><button type="button" class="text-button">Start lesson <span>→</span></button></div></article>
+            <article class="lesson-card lesson-card--blue"><div class="lesson-card__art"><span>03</span><div class="sound-circles"><i></i><i></i><i></i></div></div><div class="lesson-card__body"><p class="lesson-meta">Songs · 24 min</p><h3>Your first full song</h3><p>Put the pieces together and start playing.</p><button type="button" class="text-button">Start lesson <span>→</span></button></div></article>
+          </div>
+        </section>
+        <section class="content-section continue-section" id="continue" aria-labelledby="continueTitle"><div class="section-heading"><div><p class="section-eyebrow"><span></span> Pick up where you left off</p><h2 id="continueTitle">Continue learning</h2></div><a href="#practice">My learning path <span>→</span></a></div>
+          <article class="continue-card"><div class="continue-card__icon"><svg viewBox="0 0 24 24"><path d="M7 4v16l12-8Z"/></svg></div><div class="continue-card__details"><p class="lesson-meta">Lesson 4 of 12 · Chords for beginners</p><h3>Switching between G, C &amp; D</h3><div class="lesson-progress"><span></span></div><p>42% completed · 9 min remaining</p></div><button class="resume-button" type="button">Resume <span>→</span></button></article>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="sidebar-scrim" id="sidebarScrim" hidden></div>
+  <script>
+    const sidebar=document.querySelector('#sidebar'),menuButton=document.querySelector('#menuButton'),scrim=document.querySelector('#sidebarScrim');
+    const closeMenu=()=>{sidebar.classList.remove('is-open');menuButton.setAttribute('aria-expanded','false');scrim.hidden=true};
+    menuButton.addEventListener('click',()=>{const open=sidebar.classList.toggle('is-open');menuButton.setAttribute('aria-expanded',open);scrim.hidden=!open});scrim.addEventListener('click',closeMenu);
+    fetch('/api/me',{credentials:'same-origin'}).then(r=>r.ok?r.json():Promise.reject()).then(({user})=>{const firstName=user.name.split(/\s+/)[0];document.querySelector('#dashboardName').textContent=firstName;document.querySelector('#userAvatar').textContent=firstName.charAt(0).toUpperCase()}).catch(()=>window.location.assign('/'));
+    const pad=n=>String(n).padStart(2,'0'),now=new Date(),localDate=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+    fetch('/api/streak?date='+localDate,{credentials:'same-origin'}).then(r=>r.ok?r.json():Promise.reject()).then(s=>{
+      document.querySelector('#streakCount').textContent=s.current;document.querySelector('#streakUnit').textContent=s.current===1?'day':'days';document.querySelector('#streakBest').textContent=s.best;
+      document.querySelector('#streakCopy').textContent=s.doneToday?(s.current>1?'You’re on fire! Come back tomorrow to keep the rhythm going.':'Great start! Come back tomorrow to build your streak.'):(s.current>0?'One lesson today keeps your streak alive.':'Finish a lesson today to start your streak.');
+      document.querySelectorAll('#weekDots span').forEach((dot,i)=>{const day=s.week[i];dot.classList.toggle('is-complete',day.done);dot.classList.toggle('is-today',day.today&&!day.done);dot.title=day.date});
+    }).catch(()=>{});
+    document.querySelector('#logoutButton').addEventListener('click',async()=>{await fetch('/api/logout',{method:'POST',credentials:'same-origin'});window.location.assign('/')});
+  </script>
+</body>
+</html>

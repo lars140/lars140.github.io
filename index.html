@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Log in to Stringly and continue your guitar learning journey." />
+    <title>Log in | Stringly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      try {
+        if (localStorage.getItem('stringly-theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+      } catch (_) { /* Storage may be unavailable; light mode remains the default. */ }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="login-layout">
+      <section class="hero" aria-label="Stringly guitar learning">
+        <div class="hero__glow"></div>
+        <a class="brand brand--light" href="/" aria-label="Stringly home">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" role="img"><path d="M12 6v18.4a5 5 0 1 1-2-4V9l16-3v15.4a5 5 0 1 1-2-4V10L12 12"/></svg>
+          </span>
+          <span>Stringly</span>
+        </a>
+
+        <div class="hero__art" aria-hidden="true">
+          <span class="note note--one">♪</span><span class="note note--two">♩</span>
+          <img class="guitar" src="hero-electric-guitar.png" alt="" width="1142" height="1377" decoding="async" />
+        </div>
+
+        <div class="hero__copy">
+          <span class="eyebrow"><span></span> Your next chord awaits</span>
+          <h1>Your journey to mastering guitar starts here.</h1>
+          <p>Learn at your pace, build lasting skills, and play the music you love.</p>
+        </div>
+        <div class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </section>
+
+      <section class="auth-panel">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <svg class="theme-toggle__moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5 8.5 8.5 0 1 0 20.5 15.5Z"/></svg>
+          <svg class="theme-toggle__sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <span class="theme-toggle__label">Dark mode</span>
+        </button>
+        <div class="auth-panel__inner">
+          <a class="brand brand--mobile" href="/" aria-label="Stringly home">
+            <span class="brand__mark" aria-hidden="true">
+              <svg viewBox="0 0 36 36"><path d="M12 6v18.4a5 5 0 1 1-2-4V9l16-3v15.4a5 5 0 1 1-2-4V10L12 12"/></svg>
+            </span><span>Stringly</span>
+          </a>
+          <div id="loginView">
+          <div class="auth-heading">
+            <p class="kicker">Welcome to Stringly</p>
+            <h2 tabindex="-1">Welcome back</h2>
+            <p>Continue your guitar learning journey.</p>
+          </div>
+
+          <div id="formAlert" class="form-alert" role="alert" hidden></div>
+          <form id="loginForm" novalidate>
+            <div class="field">
+              <label for="email">Email address</label>
+              <div class="input-wrap">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="emailError" required />
+              </div>
+              <p class="field-error" id="emailError"></p>
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <div class="input-wrap">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" aria-describedby="passwordError" required />
+                <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false">
+                  <svg class="eye-open" aria-hidden="true" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                  <svg class="eye-closed" aria-hidden="true" viewBox="0 0 24 24"><path d="m3 3 18 18M10.6 6.1A9 9 0 0 1 12 6c6 0 9.5 6 9.5 6a15 15 0 0 1-2.2 2.8M6.3 6.3C3.9 8 2.5 12 2.5 12s3.5 6 9.5 6a9 9 0 0 0 3-.5"/></svg>
+                </button>
+              </div>
+              <p class="field-error" id="passwordError"></p>
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox"><input type="checkbox" name="remember" /><span aria-hidden="true"></span>Remember me</label>
+              <a href="/forgot-password">Forgot password?</a>
+            </div>
+
+            <button class="primary-button" type="submit">
+              <span class="button-label">Log in</span><span class="spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <div class="divider"><span>or continue with</span></div>
+          <button class="google-button" id="googleLogin" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.6 12.2c0-.7-.1-1.5-.2-2.2H12v4.3h6a5.2 5.2 0 0 1-2.2 3.3v2.8h3.6c2.1-2 3.2-4.8 3.2-8.2Z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.4-2.6l-3.6-2.8c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2v2.9A11.2 11.2 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.7 14.1a6.8 6.8 0 0 1 0-4.2V7H2a11.2 11.2 0 0 0 0 10l3.7-2.9Z"/><path fill="#EA4335" d="M12 5.3c1.7 0 3.2.6 4.4 1.7l3.1-3.1A10.5 10.5 0 0 0 12 1 11.2 11.2 0 0 0 2 7l3.7 2.9c.9-2.7 3.4-4.6 6.3-4.6Z"/></svg>
+            Continue with Google
+          </button>
+          <p class="signup">Don't have an account? <a href="#signup">Sign up</a></p>
+          </div>
+
+          <div id="signupView" hidden>
+            <div class="auth-heading">
+              <p class="kicker">Join Stringly</p>
+              <h2 tabindex="-1">Create an account</h2>
+              <p>Start learning guitar and play your story.</p>
+            </div>
+            <div id="signupAlert" class="form-alert" role="alert" hidden></div>
+            <form id="signupForm" novalidate>
+              <div class="field">
+                <label for="signupName">Your name</label>
+                <div class="input-wrap">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3-7 8-7s8 3 8 7"/></svg>
+                  <input id="signupName" name="name" type="text" autocomplete="name" placeholder="Your name" aria-describedby="signupNameError" maxlength="80" required />
+                </div>
+                <p class="field-error" id="signupNameError"></p>
+              </div>
+              <div class="field">
+                <label for="signupEmail">Email address</label>
+                <div class="input-wrap">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>
+                  <input id="signupEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="signupEmailError" maxlength="254" required />
+                </div>
+                <p class="field-error" id="signupEmailError"></p>
+              </div>
+              <div class="field">
+                <label for="signupPassword">Password</label>
+                <div class="input-wrap">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                  <input id="signupPassword" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" aria-describedby="signupPasswordError" required minlength="8" maxlength="128" />
+                  <button class="password-toggle" type="button" data-target="signupPassword" aria-label="Show password" aria-pressed="false">
+                    <svg class="eye-open" aria-hidden="true" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                    <svg class="eye-closed" aria-hidden="true" viewBox="0 0 24 24"><path d="m3 3 18 18M10.6 6.1A9 9 0 0 1 12 6c6 0 9.5 6 9.5 6s-3.5 6-9.5 6a9 9 0 0 1-3-.5"/></svg>
+                  </button>
+                </div>
+                <p class="field-error" id="signupPasswordError"></p>
+              </div>
+              <div class="field">
+                <label for="signupConfirm">Confirm password</label>
+                <div class="input-wrap">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                  <input id="signupConfirm" name="confirm" type="password" autocomplete="new-password" placeholder="Repeat your password" aria-describedby="signupConfirmError" required maxlength="128" />
+                  <button class="password-toggle" type="button" data-target="signupConfirm" aria-label="Show password" aria-pressed="false">
+                    <svg class="eye-open" aria-hidden="true" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                    <svg class="eye-closed" aria-hidden="true" viewBox="0 0 24 24"><path d="m3 3 18 18M10.6 6.1A9 9 0 0 1 12 6c6 0 9.5 6 9.5 6s-3.5 6-9.5 6a9 9 0 0 1-3-.5"/></svg>
+                  </button>
+                </div>
+                <p class="field-error" id="signupConfirmError"></p>
+              </div>
+              <button class="primary-button" type="submit">
+                <span class="button-label">Create account</span><span class="spinner" aria-hidden="true"></span>
+              </button>
+            </form>
+            <p class="signup">Already have an account? <a href="#login">Log in</a></p>
+          </div>
+        </div>
+        <p class="legal">By continuing, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
