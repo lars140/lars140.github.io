@@ -160,15 +160,27 @@ async function requestPasswordReset(req, res) {
   sendJson(res, 202, { message: 'If an account exists for that email, you will receive password reset instructions.' });
 }
 
-// The streak backend is written in PHP (api/streak.php); it needs `php` on the PATH (or PHP_BIN).
-function runStreak(userId, action, date) {
+// The streak and song backends are written in PHP (api/*.php); they need `php` on the PATH (or PHP_BIN).
+function runPhp(script, payload) {
   return new Promise((resolve, reject) => {
-    const child = execFile(process.env.PHP_BIN || 'php', [path.join(root, 'api', 'streak.php')], { timeout: 10_000 }, (error, stdout) => {
+    const child = execFile(process.env.PHP_BIN || 'php', [path.join(root, 'api', script)], { timeout: 10_000 }, (error, stdout) => {
       if (error) return reject(error);
       try { resolve(JSON.parse(stdout)); } catch (parseError) { reject(parseError); }
     });
-    child.stdin.end(JSON.stringify({ userId, action, date }));
+    child.stdin.end(JSON.stringify(payload));
   });
+}
+
+const runStreak = (userId, action, date) => runPhp('streak.php', { userId, action, date });
+
+async function songs(res, user, payload) {
+  try {
+    const { status, body } = await runPhp('songs.php', { userId: user.id, ...payload });
+    sendJson(res, status, body);
+  } catch (error) {
+    console.error('Songs backend failed (is PHP installed?):', error.message);
+    sendError(res, 503, 'SONGS_UNAVAILABLE', 'Songs are unavailable right now.');
+  }
 }
 
 async function streak(req, res, user, action, date) {
@@ -201,6 +213,9 @@ const staticFiles = {
   '/song-lesson.js': ['song-lesson.js', 'text/javascript; charset=utf-8'],
   '/song-lesson.css': ['song-lesson.css', 'text/css; charset=utf-8'],
   '/song-youtube.css': ['song-youtube.css', 'text/css; charset=utf-8'],
+  '/songs.css': ['songs.css', 'text/css; charset=utf-8'],
+  '/songs.js': ['songs.js', 'text/javascript; charset=utf-8'],
+  '/song-detail.js': ['song-detail.js', 'text/javascript; charset=utf-8'],
   '/styles.css': ['styles.css', 'text/css; charset=utf-8'],
   '/hero-electric-guitar.png': ['hero-electric-guitar.png', 'image/png'],
   '/forgot-password': ['forgot-password.html', 'text/html; charset=utf-8'],
@@ -235,6 +250,11 @@ const server = http.createServer(async (req, res) => {
       if (!await currentUser(req)) { res.writeHead(302, { Location: '/' }); return res.end(); }
       return await serveFile(res, 'hey-brother.html', 'text/html; charset=utf-8');
     }
+    const songPage = /^\/songs\/([a-z0-9-]{1,60})$/.exec(url.pathname);
+    if (req.method === 'GET' && songPage) {
+      if (!await currentUser(req)) { res.writeHead(302, { Location: '/' }); return res.end(); }
+      return await serveFile(res, 'song-detail.html', 'text/html; charset=utf-8');
+    }
     if (req.method === 'GET' && url.pathname === '/lessons/electric-guitar-basics') {
       if (!await currentUser(req)) { res.writeHead(302, { Location: '/' }); return res.end(); }
       return await serveFile(res, 'electric-guitar-basics.html', 'text/html; charset=utf-8');
@@ -251,6 +271,18 @@ const server = http.createServer(async (req, res) => {
         if (!checkOrigin(req)) return sendError(res, 403, 'BAD_ORIGIN', 'Request origin is not allowed.');
         const data = await readJson(req);
         return await streak(req, res, user, 'complete', data.date);
+      }
+    }
+    const songApi = /^\/api\/songs(?:\/([a-z0-9-]{1,60})(\/progress)?)?$/.exec(url.pathname);
+    if (songApi) {
+      const user = await currentUser(req);
+      if (!user) return sendError(res, 401, 'UNAUTHORIZED', 'Please log in.');
+      const [, slug, progress] = songApi;
+      if (req.method === 'GET' && !progress) return await songs(res, user, slug ? { action: 'get', slug } : { action: 'list' });
+      if (req.method === 'POST' && slug && progress) {
+        if (!checkOrigin(req)) return sendError(res, 403, 'BAD_ORIGIN', 'Request origin is not allowed.');
+        const data = await readJson(req);
+        return await songs(res, user, data.step === undefined ? { action: 'complete', slug, done: data.done } : { action: 'step', slug, step: data.step, checked: data.checked });
       }
     }
     if (req.method === 'POST' && ['/api/register', '/api/login', '/api/logout', '/api/password-reset'].includes(url.pathname)) {

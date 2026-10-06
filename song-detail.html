@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Song lesson | Stringly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/songs.css">
+</head>
+<body class="app-body songs-page">
+  <div class="app-shell">
+    <aside class="app-sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="app-brand" href="/dashboard"><span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M12 6v18.4a5 5 0 1 1-2-4V9l16-3v15.4a5 5 0 1 1-2-4V10L12 12"/></svg></span><span>Stringly</span></a>
+      <nav class="app-nav" aria-label="Learning sections">
+        <a class="app-nav__item" href="/dashboard"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>Dashboard</a>
+        <a class="app-nav__item" href="/lessons"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg>Lessons</a>
+        <a class="app-nav__item" href="/practice"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 7v10M17 7v10M3 10v4M21 10v4"/></svg>Practice</a>
+        <a class="app-nav__item is-active" href="/songs"><svg viewBox="0 0 24 24"><path d="M8 18V5l12-2v13M8 18a3 3 0 1 1-2-2.8M20 16a3 3 0 1 1-2-2.8"/></svg>Songs</a>
+        <a class="app-nav__item" href="/dashboard#progress"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>Progress</a>
+      </nav>
+      <div class="app-sidebar__bottom"><a class="app-nav__item" href="/dashboard#settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg>Settings</a><button id="logoutButton" class="app-nav__item app-nav__item--button" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M12 4h7a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7"/></svg>Log out</button></div>
+    </aside>
+    <main class="app-main">
+      <header class="app-topbar"><button class="menu-button" id="menuButton" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><span></span><span></span><span></span></button><div class="app-topbar__greeting"><p>Song lesson</p><strong>Take it one step at a time.</strong></div><div class="app-topbar__actions"><div class="user-avatar" id="userAvatar" aria-hidden="true">S</div></div></header>
+      <div class="app-content song-detail" id="songDetail" hidden>
+        <a class="text-button song-back" href="/songs">← All songs</a>
+        <header class="song-detail__header">
+          <div><p class="section-eyebrow"><span></span> <span id="songRank"></span></p><h1 id="songTitle"></h1><p class="song-detail__artist" id="songArtist"></p></div>
+          <div class="difficulty" id="songDifficulty"></div>
+        </header>
+        <div class="song-detail__grid">
+          <div class="song-detail__main">
+            <div class="video-frame" id="videoFrame"></div>
+            <p class="video-note" id="videoNote"></p>
+            <section class="song-card-panel"><h2>What you'll learn</h2><p id="songDescription"></p></section>
+          </div>
+          <aside class="song-detail__side">
+            <section class="song-card-panel"><h2>Tuning</h2><p class="tuning" id="songTuning"></p></section>
+            <section class="song-card-panel">
+              <h2>Practice steps</h2>
+              <div class="songs-progress__bar"><i id="stepBar"></i></div><p class="step-count" id="stepCount"></p>
+              <ul class="step-list" id="stepList"></ul>
+              <button class="song-primary-button" id="doneButton" type="button"></button>
+              <p class="interaction-feedback is-error" id="songError" role="alert" hidden></p>
+            </section>
+            <nav class="song-nav" aria-label="Neighbouring songs"><a id="prevSong" href="#" hidden></a><a id="nextSong" href="#" hidden></a></nav>
+          </aside>
+        </div>
+      </div>
+      <div class="app-content"><p class="interaction-feedback is-error" id="pageError" role="alert" hidden>This song could not be loaded. <a href="/songs">Back to songs</a></p></div>
+    </main>
+  </div><div class="sidebar-scrim" id="sidebarScrim" hidden></div>
+  <script src="/song-detail.js"></script>
+</body>
+</html>

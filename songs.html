@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Choose a song to practise with Stringly."><title>Songs | Stringly</title>
+  <meta name="description" content="Learn 40 classic guitar songs, from easiest to hardest, with Stringly."><title>Songs | Stringly</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/songs.css">
 </head>
 <body class="app-body songs-page">
   <div class="app-shell">
@@ -20,25 +20,22 @@
       <div class="app-sidebar__bottom"><a class="app-nav__item" href="/dashboard#settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg>Settings</a><button id="logoutButton" class="app-nav__item app-nav__item--button" type="button"><svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M12 4h7a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7"/></svg>Log out</button></div>
     </aside>
     <main class="app-main">
-      <header class="app-topbar"><button class="menu-button" id="menuButton" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><span></span><span></span><span></span></button><div class="app-topbar__greeting"><p>Song library</p><strong>Pick a track and make it yours.</strong></div><div class="app-topbar__actions"><div class="user-avatar" id="userAvatar" aria-hidden="true">S</div></div></header>
+      <header class="app-topbar"><button class="menu-button" id="menuButton" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><span></span><span></span><span></span></button><div class="app-topbar__greeting"><p>Song lessons</p><strong>Start easy. Build up.</strong></div><div class="app-topbar__actions"><div class="user-avatar" id="userAvatar" aria-hidden="true">S</div></div></header>
       <div class="app-content songs-content">
-        <section class="songs-intro" aria-labelledby="songsTitle"><p class="section-eyebrow"><span></span> Learn by playing</p><h1 id="songsTitle">Songs that make you want to <span>pick up your guitar.</span></h1><p>Build timing, confidence, and technique with clear, beginner-friendly song sessions.</p></section>
-        <section class="song-feature" aria-labelledby="featuredSong"><div class="song-feature__art" aria-hidden="true"><span>RIFF</span><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="song-feature__copy"><p class="section-eyebrow"><span></span> Recommended for you</p><h2 id="featuredSong">Hey Brother</h2><p>Learn the iconic riff, one note at a time. No chords needed.</p><div class="song-details"><span>Beginner</span><span>7 notes</span><span>Low E string</span></div><a class="song-primary-button" href="/songs/hey-brother">Start song <span aria-hidden="true">→</span></a></div></section>
-        <section class="songs-library" aria-labelledby="libraryTitle"><div class="songs-library__heading"><div><p class="section-eyebrow"><span></span> Browse songs</p><h2 id="libraryTitle">Find your next favourite.</h2></div><div class="song-filter" aria-label="Song filters"><button class="is-selected" type="button">All</button><button type="button">Beginner</button><button type="button">Rock</button><button type="button">Pop</button></div></div><div class="song-grid">
-          <article class="song-card"><div class="song-card__cover song-card__cover--blue"><span>RIFF</span><i></i><i></i><i></i></div><p>Rock · Beginner</p><h3>Hey Brother</h3><small>Single-note riff · 10 min</small><a href="/lessons/electric-guitar-basics">Learn song <span>→</span></a></article>
-          <article class="song-card"><div class="song-card__cover song-card__cover--navy"><span>CHORDS</span><i></i><i></i><i></i></div><p>Classic · Beginner</p><h3>Knockin' on Heaven's Door</h3><small>Four open chords · 15 min</small><a href="/practice">Practise chords <span>→</span></a></article>
-          <article class="song-card"><div class="song-card__cover song-card__cover--sky"><span>GROOVE</span><i></i><i></i><i></i></div><p>Pop · Demo lesson</p><h3>Hey Brother</h3><small>Synced tab player · 12 min</small><a href="/songs/hey-brother">Open lesson <span>→</span></a></article>
-          <article class="song-card"><div class="song-card__cover song-card__cover--ink"><span>POWER</span><i></i><i></i><i></i></div><p>Rock · Intermediate</p><h3>Zombie</h3><small>Power chords · 18 min</small><a href="/practice">Practise chords <span>→</span></a></article>
-        </div></section>
+        <section class="songs-intro" aria-labelledby="songsTitle">
+          <p class="section-eyebrow"><span></span> Learn by playing</p>
+          <h1 id="songsTitle">40 songs, <span>easiest first.</span></h1>
+          <p>Each lesson has a video tutorial, the tuning, and a short practice plan. Tick off the steps as you go.</p>
+          <div class="songs-progress" aria-live="polite"><div class="songs-progress__bar"><i id="overallBar"></i></div><p id="overallText">Loading your progress…</p></div>
+        </section>
+        <label class="song-search"><span class="visually-hidden">Search songs</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="songSearch" type="search" placeholder="Search songs or artists" autocomplete="off" maxlength="60"></label>
+        <div class="song-filter" id="songFilter" aria-label="Filter by difficulty"></div>
+        <ol class="song-list" id="songList" aria-label="Songs"></ol>
+        <p class="songs-empty" id="songsEmpty" hidden>No songs match your search.</p>
+        <p class="interaction-feedback is-error" id="songsError" role="alert" hidden>Songs could not be loaded. Please refresh the page.</p>
       </div>
     </main>
   </div><div class="sidebar-scrim" id="sidebarScrim" hidden></div>
-  <script>
-    const sidebar=document.querySelector('#sidebar'),menuButton=document.querySelector('#menuButton'),scrim=document.querySelector('#sidebarScrim');menuButton.addEventListener('click',()=>{const open=sidebar.classList.toggle('is-open');menuButton.setAttribute('aria-expanded',open);scrim.hidden=!open});scrim.addEventListener('click',()=>{sidebar.classList.remove('is-open');menuButton.setAttribute('aria-expanded','false');scrim.hidden=true});
-    fetch('/api/me',{credentials:'same-origin'}).then(r=>r.ok?r.json():Promise.reject()).then(({user})=>document.querySelector('#userAvatar').textContent=user.name.charAt(0).toUpperCase()).catch(()=>window.location.assign('/'));
-    document.querySelector('#logoutButton').addEventListener('click',async()=>{await fetch('/api/logout',{method:'POST',credentials:'same-origin'});window.location.assign('/')});
-    document.querySelectorAll('.song-filter button').forEach(button=>button.addEventListener('click',()=>{document.querySelector('.song-filter .is-selected').classList.remove('is-selected');button.classList.add('is-selected')}));
-  </script>
+  <script src="/songs.js"></script>
 </body>
 </html>
-seven nation army
