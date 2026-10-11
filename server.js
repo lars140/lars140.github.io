@@ -9,9 +9,10 @@ const songsApi = require('./api/songs');
 
 const scrypt = promisify(crypto.scrypt);
 const root = __dirname;
-const dataFile = path.join(root, 'data', 'accounts.json');
+const dataDir = process.env.DATA_DIR || path.join(root, 'data');
+const dataFile = path.join(dataDir, 'accounts.json');
 const port = Number(process.env.PORT || 3000);
-const host = process.env.HOST || '127.0.0.1';
+const host = process.env.HOST || (process.env.PORT ? '0.0.0.0' : '127.0.0.1');
 const secureCookie = process.env.NODE_ENV === 'production' || process.env.COOKIE_SECURE === '1';
 const sessionAge = 7 * 24 * 60 * 60 * 1000;
 const rememberedSessionAge = 30 * 24 * 60 * 60 * 1000;
@@ -106,7 +107,9 @@ function checkOrigin(req) {
 }
 
 function rateLimited(req) {
-  const key = req.socket.remoteAddress || 'unknown';
+  // Behind a hosting proxy every request comes from the proxy, so use the client address it appends.
+  const forwarded = process.env.TRUST_PROXY === '1' ? String(req.headers['x-forwarded-for'] || '').split(',').pop().trim() : '';
+  const key = forwarded || req.socket.remoteAddress || 'unknown';
   const now = Date.now();
   const entry = attempts.get(key);
   if (!entry || entry.resetAt <= now) attempts.set(key, { count: 1, resetAt: now + 15 * 60_000 });

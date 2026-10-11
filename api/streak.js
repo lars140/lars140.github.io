@@ -2,7 +2,7 @@
 const path = require('node:path');
 const { withDatabase } = require('./store');
 
-const dataFile = path.join(__dirname, '..', 'data', 'streaks.json');
+const dataFile = path.join(process.env.DATA_DIR || path.join(__dirname, '..', 'data'), 'streaks.json');
 const day = 24 * 60 * 60 * 1000;
 
 const reply = (status, body) => ({ status, body });

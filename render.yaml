@@ -1,0 +1,20 @@
+# Render blueprint: https://render.com/docs/blueprint-spec
+# A persistent disk needs a paid plan; without it accounts and progress are wiped on every deploy.
+services:
+  - type: web
+    name: stringly
+    runtime: node
+    plan: starter
+    buildCommand: echo "nothing to build"
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: stringly-data
+      mountPath: /var/data
+      sizeGB: 1

@@ -4,7 +4,7 @@ const path = require('node:path');
 const { withDatabase } = require('./store');
 const catalogue = require('./songs-data.json'); // sorted from easiest to hardest; descriptions are original, no tabs
 
-const dataFile = path.join(__dirname, '..', 'data', 'progress.json');
+const dataFile = path.join(process.env.DATA_DIR || path.join(__dirname, '..', 'data'), 'progress.json');
 
 // Every song gets the three shared practice steps after its own first "focus" step.
 const songs = catalogue.map(({ focus, ...song }) => ({
