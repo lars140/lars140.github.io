@@ -4,7 +4,8 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { promisify } = require('node:util');
-const { execFile } = require('node:child_process');
+const streakApi = require('./api/streak');
+const songsApi = require('./api/songs');
 
 const scrypt = promisify(crypto.scrypt);
 const root = __dirname;
@@ -160,25 +161,12 @@ async function requestPasswordReset(req, res) {
   sendJson(res, 202, { message: 'If an account exists for that email, you will receive password reset instructions.' });
 }
 
-// The streak and song backends are written in PHP (api/*.php); they need `php` on the PATH (or PHP_BIN).
-function runPhp(script, payload) {
-  return new Promise((resolve, reject) => {
-    const child = execFile(process.env.PHP_BIN || 'php', [path.join(root, 'api', script)], { timeout: 10_000 }, (error, stdout) => {
-      if (error) return reject(error);
-      try { resolve(JSON.parse(stdout)); } catch (parseError) { reject(parseError); }
-    });
-    child.stdin.end(JSON.stringify(payload));
-  });
-}
-
-const runStreak = (userId, action, date) => runPhp('streak.php', { userId, action, date });
-
 async function songs(res, user, payload) {
   try {
-    const { status, body } = await runPhp('songs.php', { userId: user.id, ...payload });
+    const { status, body } = await songsApi.handle({ userId: user.id, ...payload });
     sendJson(res, status, body);
   } catch (error) {
-    console.error('Songs backend failed (is PHP installed?):', error.message);
+    console.error('Songs backend failed:', error);
     sendError(res, 503, 'SONGS_UNAVAILABLE', 'Songs are unavailable right now.');
   }
 }
@@ -186,10 +174,10 @@ async function songs(res, user, payload) {
 async function streak(req, res, user, action, date) {
   if (typeof date !== 'string') return sendError(res, 400, 'INVALID_DATE', 'A valid date is required.');
   try {
-    const { status, body } = await runStreak(user.id, action, date);
+    const { status, body } = await streakApi.handle({ userId: user.id, action, date });
     sendJson(res, status, body);
   } catch (error) {
-    console.error('Streak backend failed (is PHP installed?):', error.message);
+    console.error('Streak backend failed:', error);
     sendError(res, 503, 'STREAK_UNAVAILABLE', 'Streak tracking is unavailable right now.');
   }
 }

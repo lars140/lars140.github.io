@@ -5,7 +5,7 @@ const progressLabel = document.querySelector('#progressLabel');
 const sectionLabel = document.querySelector('#sectionLabel');
 let currentStep = 0;
 
-// Finishing a lesson counts as a practice day for the daily streak (see api/streak.php).
+// Finishing a lesson counts as a practice day for the daily streak (see api/streak.js).
 function recordLessonCompleted() {
   const now = new Date(), pad = (value) => String(value).padStart(2, '0');
   const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;

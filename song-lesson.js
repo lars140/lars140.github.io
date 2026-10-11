@@ -2,7 +2,7 @@
 const lessonData = Object.freeze({ notes: [{ fret: 3, at: 0 }, { fret: 5, at: 2 }, { fret: 7, at: 4 }, { fret: 5, at: 6 }, { fret: 3, at: 8 }, { fret: 2, at: 10 }, { fret: 3, at: 12 }, { fret: 0, at: 14 }] });
 const tabs = document.querySelector('#tabNotes'), playButton = document.querySelector('#playButton'), restartButton = document.querySelector('#restartButton'), volumeControl = document.querySelector('#volumeControl'), fullscreenButton = document.querySelector('#fullscreenButton'), status = document.querySelector('#playerStatus'), videoRegion = document.querySelector('#videoRegion');
 let player, activeIndex = -1, animationFrame = 0;
-// Finishing a song lesson counts as a practice day for the daily streak (see api/streak.php).
+// Finishing a song lesson counts as a practice day for the daily streak (see api/streak.js).
 function recordLessonCompleted() { const now = new Date(), pad = value => String(value).padStart(2, '0'); fetch('/api/streak', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ date: `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}` }) }).catch(() => {}); }
 function getIndex(time) { for (let i = lessonData.notes.length - 1; i >= 0; i -= 1) if (time >= lessonData.notes[i].at) return i; return 0; }
 const noteElements = lessonData.notes.map((note, index) => { const button = document.createElement('button'); button.type = 'button'; button.className = 'sync-note'; button.textContent = note.fret; button.setAttribute('aria-label', `Demo note ${index + 1}, fret ${note.fret}, at ${note.at} seconds`); button.addEventListener('click', () => { player.seekTo(note.at, true); sync(note.at, true); }); tabs.append(button); return button; });
